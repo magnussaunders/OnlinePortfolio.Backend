@@ -1,0 +1,52 @@
+name: continuous-integration-workflow
+
+on: 
+  pull_request:
+    branches:
+      - master
+      - dev
+      
+jobs:
+  integrate-dev:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    environment: OnlinePortfolio.Backend-Dev
+    steps: 
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{secrets.NODE_VERSION}}
+      
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Run Lint Tests
+        run: npm run lint
+        
+      - name: Run Unit Tests
+        run: npm run test
+        
+  integrate-prod:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: OnlinePortfolio.Backend-Prod
+    steps: 
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{secrets.NODE_VERSION}}
+      
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Run Lint Tests
+        run: npm run lint
+        
+      - name: Run Unit Tests
+        run: npm run test
