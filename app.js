@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 const express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     cors = require('cors')
-const { existsSync } = require('fs')
 
 const app = express()
 const server = require('http').createServer(app)
