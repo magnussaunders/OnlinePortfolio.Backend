@@ -8,7 +8,7 @@ on:
       
 jobs:
   integrate-dev:
-    if: github.ref == 'refs/heads/dev'
+    if: github.base_ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     environment: OnlinePortfolio.Backend-Dev
     steps: 
@@ -30,7 +30,7 @@ jobs:
         run: npm run test
         
   integrate-prod:
-    if: github.ref == 'refs/heads/master'
+    if: github.base_ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: OnlinePortfolio.Backend-Prod
     steps: 
