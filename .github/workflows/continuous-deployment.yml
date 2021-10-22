@@ -35,7 +35,7 @@ jobs:
             build-args: |
               node_version=14.18.1
             push: true
-            tags: user/app:latest
+            tags: kylesaunders/online-portfolio.backend:latest
           
         - name: Debugging
           run: echo ${{ secrets.NODE_VERSION }}
