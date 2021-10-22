@@ -23,7 +23,7 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           dockerfile_directory: ./
           dockerfile_name: Dockerfile
-          docker_options: "--no-cache"
+          docker_options: "--no-cache --build-arg node_version=14.18.1"
           process_type: web
 
   build-and-publish-prod-to-heroku:
@@ -42,7 +42,7 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           dockerfile_directory: ./
           dockerfile_name: Dockerfile
-          docker_options: "--no-cache"
+          docker_options: "--no-cache --build-arg node_version=14.18.1"
           process_type: web
 
   build-and-publish-docker-image-to-dockerhub:
