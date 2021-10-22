@@ -32,6 +32,9 @@ jobs:
           with:
             context: .
             build-args: |
-              node_version=${{ secrets.NODE_VERSION }}
+              node_version=14.18.1
             push: true
             tags: user/app:latest
+          
+        - name: Debugging
+          run: echo ${{ secrets.NODE_VERSION }}
