@@ -7,6 +7,44 @@ on:
       - master
 
 jobs:
+  build-and-publish-dev-to-heroku:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    environment: OnlinePortfolio.Backend-Dev
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Build & publish container to Heroku
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+
+  build-and-publish-prod-to-heroku:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: OnlinePortfolio.Backend-Prod
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Build & publish container to Heroku
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+
   build-and-publish-docker-image-to-dockerhub:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
@@ -39,42 +77,3 @@ jobs:
           
         - name: Debugging
           run: echo ${{ secrets.NODE_VERSION }}
-
-  build-and-publish-prod-to-heroku:
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    environment: OnlinePortfolio.Backend-Prod
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Build & publish container to Heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          dockerfile_directory: ./
-          dockerfile_name: Dockerfile
-          docker_options: "--no-cache"
-          process_type: web
-
-  build-and-publish-dev-to-heroku:
-    if: github.ref == 'refs/heads/dev'
-    runs-on: ubuntu-latest
-    environment: OnlinePortfolio.Backend-Dev
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Build & publish container to Heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          dockerfile_directory: ./
-          dockerfile_name: Dockerfile
-          docker_options: "--no-cache"
-          process_type: web
-  
