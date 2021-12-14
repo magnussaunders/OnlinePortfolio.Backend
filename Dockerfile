@@ -8,6 +8,6 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install --production
 
-COPY . .
+COPY ./dist .
 
-CMD ["node", "app.ts"]
+CMD ["node", "app.js"]
