@@ -4,10 +4,8 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import http from 'http'
-import { ProjectRoutes } from './routes/project.routes'
-import { ProjectDataAccessor } from './data-accessors/projects.data-accessor'
-import { MongodbService } from './services/mongodb.service'
-import { ProjectService } from './services/projects.service'
+import { ExpressRoutes } from './interfaces/express-routes.interface'
+import { DependencyFactory } from './factories/dependency.factory'
 
 const app = express()
 const server = http.createServer(app)
@@ -31,7 +29,10 @@ app.use(
     })
 )
 
-new ProjectRoutes(new ProjectService(new ProjectDataAccessor(new MongodbService()))).register(app)
+const expressRoutes: ExpressRoutes[] = [
+    DependencyFactory.projectRoutes
+]
+expressRoutes.forEach(expressRoute => expressRoute.register(app))
 
 server.listen(process.env.PORT || 3000)
 console.warn('processId:' + process.pid.toString() + ' App Running...')
