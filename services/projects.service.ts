@@ -20,7 +20,7 @@ export class ProjectService {
     }
 
     public async getFeaturedProjects(): Promise<MongoDocument[]> {
-        return await this.projectDataAccessor.getProjects({ featured:true })
+        return await this.projectDataAccessor.getProjects({ featured:'true' })
     }
 
     public async getProjectsWithQuery(query: Filter<WithId<Document>>): Promise<MongoDocument[]> {
