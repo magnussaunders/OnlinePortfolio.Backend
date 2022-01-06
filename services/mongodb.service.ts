@@ -25,7 +25,6 @@ export class MongodbService {
     ): Promise<MongoDocument[]> {
         await this.connectToDatabase()
         const collection = this.database.collection(collectionName)
-        console.log(collection)
         return await collection.find(
             query, { sort, limit }
         ).toArray() as { _id: ObjectId, pid: string, [key: string]: any}[]

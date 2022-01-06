@@ -14,14 +14,13 @@ export class ProjectRoutes {
         app.get('/projects/:projectId', this.getProjectById.bind(this))
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         app.get('/projects', this.getProjects.bind(this))
-
     }
 
-    private async getProjects(response: Response): Promise<void>{
+    private async getProjects(request: Request, response: Response): Promise<void>{
         try {
             const result = await this.projectService.getAllProjects()
             response.status(200).send({ projects: result })
-        } catch {
+        } catch (error) {
             //TODO Create error handler service
         }
     }
@@ -36,7 +35,7 @@ export class ProjectRoutes {
         }
     }
 
-    private async getFeaturedProjects(response: Response): Promise<void> {
+    private async getFeaturedProjects(request: Request, response: Response): Promise<void> {
         try {
             const result = await this.projectService.getFeaturedProjects()
             response.status(200).send({ projects: result })
