@@ -1,7 +1,8 @@
 /* eslint-disable */
 import { Db, Filter, MongoClient, ObjectId, Sort, WithId } from 'mongodb'
 import { Document } from 'bson'
-import {DatabaseCollections} from "../enums/database-collection.enum";
+import { DatabaseCollections } from '../enums/database-collection.enum'
+import { MongoDocument } from '../interfaces/mongo-document.interface'
 
 export class MongodbService {
     private database: Db
@@ -21,10 +22,10 @@ export class MongodbService {
         query: Filter<WithId<Document>> = {},
         sort: Sort = {},
         limit = 0
-    ): Promise<any> {
+    ): Promise<MongoDocument[]> {
         await this.connectToDatabase()
         const collection = this.database.collection(collectionName)
-
+        console.log(collection)
         return await collection.find(
             query, { sort, limit }
         ).toArray() as { _id: ObjectId, pid: string, [key: string]: any}[]
@@ -33,24 +34,32 @@ export class MongodbService {
     public async insert(
         collectionName: DatabaseCollections,
         documentData: Document
-    ): Promise<any> {
+    ): Promise<MongoDocument> {
         await this.connectToDatabase()
         const collection = this.database.collection(collectionName)
 
         const result = await collection.insertOne(documentData)
         documentData._id = result.insertedId.toString()
 
-        return documentData
+        return documentData as MongoDocument
     }
 
     public async update(
         collectionName: DatabaseCollections,
         documentData: Document,
         query: Filter<WithId<Document>> = {},
-        shouldUpsert: false
     ): Promise<void> {
         await this.connectToDatabase()
         const collection = this.database.collection(collectionName)
-        await collection.updateMany(query, { $set: documentData}, { upsert: shouldUpsert })
+        await collection.updateMany(query, { $set: documentData}, { upsert: false })
+    }
+
+    public async delete(
+        collectionName: DatabaseCollections,
+        query: Filter<WithId<Document>> = {}
+    ): Promise<void> {
+        await this.connectToDatabase()
+        const collection = this.database.collection(collectionName)
+        await collection.deleteMany(query)
     }
 }

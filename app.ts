@@ -4,7 +4,10 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import http from 'http'
-import * as projectRoutes from './routes/project.routes'
+import { ProjectRoutes } from './routes/project.routes'
+import { ProjectDataAccessor } from './data-accessors/projects.data-accessor'
+import { MongodbService } from './services/mongodb.service'
+import { ProjectService } from './services/projects.service'
 
 const app = express()
 const server = http.createServer(app)
@@ -28,7 +31,7 @@ app.use(
     })
 )
 
-projectRoutes.registerRoutes(app)
+new ProjectRoutes(new ProjectService(new ProjectDataAccessor(new MongodbService()))).register(app)
 
 server.listen(process.env.PORT || 3000)
 console.warn('processId:' + process.pid.toString() + ' App Running...')
