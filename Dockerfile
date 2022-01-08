@@ -13,5 +13,5 @@ FROM node:$node_version as deployer
 WORKDIR /app
 COPY package.json ./
 RUN npm install
-COPY --from-builder /app/dist .
+COPY --from=builder /app/dist .
 CMD ["node", "app.js"]
