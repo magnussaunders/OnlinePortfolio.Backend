@@ -17,6 +17,12 @@ export class DependencyFactory {
         return this._mongodbService
     }
 
+    private static _errorHandlerService: ErrorHandlerService
+    public static get errorHandlerService(): ErrorHandlerService {
+        if (!this._errorHandlerService) this._errorHandlerService = new ErrorHandlerService()
+        return this._errorHandlerService
+    }
+
     private static _projectsDataAccessor: ProjectDataAccessor
     public static get projectsDataAccessor(): ProjectDataAccessor {
         if (!this._projectsDataAccessor) this._projectsDataAccessor = new ProjectDataAccessor(this.mongodbService)
