@@ -2,6 +2,9 @@ import { MongodbService } from '../services/mongodb.service'
 import { ProjectDataAccessor } from '../data-accessors/projects.data-accessor'
 import { ProjectService } from '../services/projects.service'
 import { ProjectRoutes } from '../routes/project.routes'
+import { CareerItemsRoutes } from '../routes/career-items.routes'
+import { CareerItemsService } from '../services/career-items.service'
+import { CareerItemsDataAccessor } from '../data-accessors/career-items.data-accessor'
 import { ExcerptsDataAccessor } from '../data-accessors/excerpts.data-accesor'
 import { ExcerptsService } from '../services/excerpts.service'
 import { ExcerptsRoutes } from '../routes/excerpts.routes'
@@ -30,6 +33,24 @@ export class DependencyFactory {
     public static get projectsRoutes(): ProjectRoutes {
         if (!this._projectRoutes) this._projectRoutes = new ProjectRoutes(this.projectsService, this.errorHandlerService)
         return this._projectRoutes
+    }
+
+    private static _careerItemsDataAccessor: CareerItemsDataAccessor
+    public static get careerItemsDataAccessor(): CareerItemsDataAccessor {
+        if (!this._careerItemsDataAccessor) this._careerItemsDataAccessor = new CareerItemsDataAccessor(this.mongodbService)
+        return this._careerItemsDataAccessor
+    }
+
+    private static _careerItemsService: CareerItemsService
+    public static get careerItemsService(): CareerItemsService {
+        if (!this._careerItemsService) this._careerItemsService = new CareerItemsService(this.careerItemsDataAccessor)
+        return this._careerItemsService
+    }
+
+    private static _careerItemsRoutes: CareerItemsRoutes
+    public static get careerItemsRoutes(): CareerItemsRoutes {
+        if (!this._careerItemsRoutes) this._careerItemsRoutes = new CareerItemsRoutes(this.careerItemsService)
+        return this._careerItemsRoutes
     }
 
     private static _excerptsDataAccessor: ExcerptsDataAccessor

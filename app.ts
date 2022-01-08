@@ -30,6 +30,7 @@ app.use(
 )
 
 const expressRoutes: ExpressRoutes[] = [
+    DependencyFactory.careerItemsRoutes,
     DependencyFactory.projectsRoutes,
     DependencyFactory.excerptsRoutes
 ]

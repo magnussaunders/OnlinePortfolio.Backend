@@ -4,35 +4,35 @@ import { Filter, Sort, WithId } from 'mongodb'
 import { Document } from 'bson'
 import { MongoDocument } from '../interfaces/mongo-document.interface'
 
-export class ProjectDataAccessor {
+export class CareerItemsDataAccessor {
     constructor(
         private mongodbService: MongodbService
     ) {}
 
-    public async getProjects(
+    public async getCareerItems(
         query: Filter<WithId<Document>> = {},
         sort: Sort = {},
         limit = 0
     ): Promise<MongoDocument[]> {
-        return this.mongodbService.get(DatabaseCollections.Projects, query, sort, limit)
+        return this.mongodbService.get(DatabaseCollections.CareerItems, query, sort, limit)
     }
 
-    public async insertProject(
+    public async insertCareerItem(
         documentData: Document
     ): Promise<MongoDocument> {
-        return this.mongodbService.insert(DatabaseCollections.Projects, documentData)
+        return this.mongodbService.insert(DatabaseCollections.CareerItems, documentData)
     }
 
-    public async updateProjects(
+    public async updateCareerItems(
         documentData: Document,
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return this.mongodbService.update(DatabaseCollections.Projects, documentData, query)
+        return this.mongodbService.update(DatabaseCollections.CareerItems, documentData, query)
     }
 
-    public async deleteProjects(
+    public async deleteCareerItems(
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return this.mongodbService.delete(DatabaseCollections.Projects, query)
+        return this.mongodbService.delete(DatabaseCollections.CareerItems, query)
     }
 }
