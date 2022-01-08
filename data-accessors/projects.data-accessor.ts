@@ -14,25 +14,25 @@ export class ProjectDataAccessor {
         sort: Sort = {},
         limit = 0
     ): Promise<MongoDocument[]> {
-        return await this.mongodbService.get(DatabaseCollections.Projects, query, sort, limit)
+        return this.mongodbService.get(DatabaseCollections.Projects, query, sort, limit)
     }
 
     public async insertProjects(
         documentData: Document
     ): Promise<MongoDocument> {
-        return await this.mongodbService.insert(DatabaseCollections.Projects, documentData)
+        return this.mongodbService.insert(DatabaseCollections.Projects, documentData)
     }
 
     public async updateProjects(
         documentData: Document,
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return await this.mongodbService.update(DatabaseCollections.Projects, documentData, query)
+        return this.mongodbService.update(DatabaseCollections.Projects, documentData, query)
     }
 
     public async deleteProjects(
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return await this.mongodbService.delete(DatabaseCollections.Projects, query)
+        return this.mongodbService.delete(DatabaseCollections.Projects, query)
     }
 }
