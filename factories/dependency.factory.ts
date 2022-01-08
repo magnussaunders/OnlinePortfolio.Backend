@@ -5,6 +5,7 @@ import { ProjectRoutes } from '../routes/project.routes'
 import { ExcerptsDataAccessor } from '../data-accessors/excerpts.data-accesor'
 import { ExcerptsService } from '../services/excerpts.service'
 import { ExcerptsRoutes } from '../routes/excerpts.routes'
+import { ErrorHandlerService } from '../services/error-handler.service'
 
 export class DependencyFactory {
     private static _mongodbService: MongodbService
@@ -27,7 +28,7 @@ export class DependencyFactory {
 
     private static _projectRoutes: ProjectRoutes
     public static get projectsRoutes(): ProjectRoutes {
-        if (!this._projectRoutes) this._projectRoutes = new ProjectRoutes(this.projectsService)
+        if (!this._projectRoutes) this._projectRoutes = new ProjectRoutes(this.projectsService, this.errorHandlerService)
         return this._projectRoutes
     }
 

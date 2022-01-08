@@ -1,10 +1,12 @@
 import { Express, Request, Response } from 'express'
 import { ProjectService } from '../services/projects.service'
 import { ObjectId } from 'mongodb'
+import { ErrorHandlerService } from '../services/error-handler.service'
 
 export class ProjectRoutes {
     constructor(
-        private projectService: ProjectService
+        private projectService: ProjectService,
+        private errorHandlerService: ErrorHandlerService
     ) {}
 
     public register(app: Express) {
@@ -21,7 +23,7 @@ export class ProjectRoutes {
             const result = await this.projectService.getAllProjects()
             response.status(200).send({ projects: result })
         } catch (error) {
-            //TODO Create error handler service
+            this.errorHandlerService.handleError(response, error)
         }
     }
 
@@ -30,8 +32,8 @@ export class ProjectRoutes {
             const projectId = request.params.projectId
             const result = await this.projectService.getProjectById(new ObjectId(projectId))
             response.status(200).send({ project: result })
-        } catch {
-            //TODO Create error handler service
+        } catch (error) {
+            this.errorHandlerService.handleError(response, error)
         }
     }
 
@@ -39,8 +41,8 @@ export class ProjectRoutes {
         try {
             const result = await this.projectService.getFeaturedProjects()
             response.status(200).send({ projects: result })
-        } catch {
-            //TODO Create error handler service
+        } catch (error){
+            this.errorHandlerService.handleError(response, error)
         }
     }
 }
