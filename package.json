@@ -27,7 +27,8 @@
     "cors": "2.8.5",
     "express": "4.17.1",
     "mongodb": "^4.2.2",
-    "morgan": "1.10.0"
+    "morgan": "1.10.0",
+    "npm": "^8.3.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
