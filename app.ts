@@ -37,4 +37,4 @@ const expressRoutes: ExpressRoutes[] = [
 expressRoutes.forEach(expressRoute => expressRoute.register(app))
 
 server.listen(process.env.PORT || 3000)
-console.warn('processId:' + process.pid.toString() + ' App Running...')
+console.warn('processId:' + process.pid.toString() + ' App Running on port ' + process.env.PORT)
