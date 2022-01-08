@@ -30,8 +30,9 @@ app.use(
 )
 
 const expressRoutes: ExpressRoutes[] = [
-    DependencyFactory.projectRoutes,
-    DependencyFactory.careerItemsRoutes
+    DependencyFactory.careerItemsRoutes,
+    DependencyFactory.projectsRoutes,
+    DependencyFactory.excerptsRoutes
 ]
 expressRoutes.forEach(expressRoute => expressRoute.register(app))
 

@@ -4,35 +4,35 @@ import { Filter, Sort, WithId } from 'mongodb'
 import { Document } from 'bson'
 import { MongoDocument } from '../interfaces/mongo-document.interface'
 
-export class ProjectDataAccessor {
+export class ExcerptsDataAccessor {
     constructor(
         private mongodbService: MongodbService
     ) {}
 
-    public async getProjects(
+    public async getExcerpts(
         query: Filter<WithId<Document>> = {},
         sort: Sort = {},
         limit = 0
     ): Promise<MongoDocument[]> {
-        return this.mongodbService.get(DatabaseCollections.Projects, query, sort, limit)
+        return this.mongodbService.get(DatabaseCollections.Excerpts, query, sort, limit)
     }
 
-    public async insertProject(
+    public async insertExcerpt(
         documentData: Document
     ): Promise<MongoDocument> {
-        return this.mongodbService.insert(DatabaseCollections.Projects, documentData)
+        return this.mongodbService.insert(DatabaseCollections.Excerpts, documentData)
     }
 
-    public async updateProjects(
+    public async updateExcerpts(
         documentData: Document,
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return this.mongodbService.update(DatabaseCollections.Projects, documentData, query)
+        return this.mongodbService.update(DatabaseCollections.Excerpts, documentData, query)
     }
 
-    public async deleteProjects(
+    public async deleteExcerpts(
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return this.mongodbService.delete(DatabaseCollections.Projects, query)
+        return this.mongodbService.delete(DatabaseCollections.Excerpts, query)
     }
 }
