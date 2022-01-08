@@ -14,25 +14,25 @@ export class CareerItemsDataAccessor {
         sort: Sort = {},
         limit = 0
     ): Promise<MongoDocument[]> {
-        return await this.mongodbService.get(DatabaseCollections.CareerItems, query, sort, limit)
+        return this.mongodbService.get(DatabaseCollections.CareerItems, query, sort, limit)
     }
 
     public async insertCareerItem(
         documentData: Document
     ): Promise<MongoDocument> {
-        return await this.mongodbService.insert(DatabaseCollections.CareerItems, documentData)
+        return this.mongodbService.insert(DatabaseCollections.CareerItems, documentData)
     }
 
     public async updateCareerItems(
         documentData: Document,
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return await this.mongodbService.update(DatabaseCollections.CareerItems, documentData, query)
+        return this.mongodbService.update(DatabaseCollections.CareerItems, documentData, query)
     }
 
     public async deleteCareerItems(
         query: Filter<WithId<Document>> = {}
     ): Promise<void> {
-        return await this.mongodbService.delete(DatabaseCollections.CareerItems, query)
+        return this.mongodbService.delete(DatabaseCollections.CareerItems, query)
     }
 }
