@@ -9,9 +9,9 @@ export class CareerItemsRoutes {
 
     public register(app: Express) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/career/:careerItemId', this.getCareerItemById.bind(this))
+        app.get('/api/career/:careerItemId', this.getCareerItemById.bind(this))
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/career', this.getCareerItems.bind(this))
+        app.get('/api/career', this.getCareerItems.bind(this))
     }
 
     private async getCareerItems(request: Request, response: Response): Promise<void>{
