@@ -11,11 +11,11 @@ export class ProjectRoutes {
 
     public register(app: Express) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/projects/featured', this.getFeaturedProjects.bind(this))
+        app.get('/api/projects/featured', this.getFeaturedProjects.bind(this))
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/projects/:projectId', this.getProjectById.bind(this))
+        app.get('/api/projects/:projectId', this.getProjectById.bind(this))
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/projects', this.getProjects.bind(this))
+        app.get('/api/projects', this.getProjects.bind(this))
     }
 
     private async getProjects(request: Request, response: Response): Promise<void>{
