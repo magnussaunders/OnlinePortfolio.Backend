@@ -17,6 +17,7 @@ export class Project {
         project.description = jsonObj.description as string
         project.creationDate = jsonObj.creationDate as string
         project.featured = jsonObj.featured as boolean
+        // eslint-disable-next-line no-extra-parens
         project.resources = (jsonObj.resources as Record<string, unknown>[]).map(
             currentResource => ProjectResource.fromJson(currentResource)
         )
