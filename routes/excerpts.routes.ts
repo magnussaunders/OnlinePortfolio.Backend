@@ -9,9 +9,9 @@ export class ExcerptsRoutes {
 
     public register(app: Express) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/excerpts/:excerptId', this.getExcerptById.bind(this))
+        app.get('/api/excerpts/:excerptId', this.getExcerptById.bind(this))
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        app.get('/excerpts', this.getExcerpts.bind(this))
+        app.get('/api/excerpts', this.getExcerpts.bind(this))
     }
 
     private async getExcerpts(request: Request, response: Response): Promise<void>{
