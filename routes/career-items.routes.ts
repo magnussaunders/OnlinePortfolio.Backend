@@ -17,7 +17,7 @@ export class CareerItemsRoutes {
     private async getCareerItems(request: Request, response: Response): Promise<void>{
         try {
             const result = await this.careerItemsService.getAllCareerItems()
-            response.status(200).send({ projects: result })
+            response.status(200).send(result)
         } catch (error) {
             //TODO Create error handler service
         }
@@ -27,7 +27,7 @@ export class CareerItemsRoutes {
         try {
             const careerItemId = request.params.careerItemId
             const result = await this.careerItemsService.getCareerItemById(new ObjectId(careerItemId))
-            response.status(200).send({ project: result })
+            response.status(200).send(result)
         } catch {
             //TODO Create error handler service
         }
