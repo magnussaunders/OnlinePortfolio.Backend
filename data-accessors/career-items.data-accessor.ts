@@ -3,6 +3,7 @@ import { DatabaseCollections } from '../enums/database-collection.enum'
 import { Filter, Sort, WithId } from 'mongodb'
 import { Document } from 'bson'
 import { MongoDocument } from '../interfaces/mongo-document.interface'
+import { CareerItem } from '../models/career-item.model'
 
 export class CareerItemsDataAccessor {
     constructor(
@@ -13,8 +14,9 @@ export class CareerItemsDataAccessor {
         query: Filter<WithId<Document>> = {},
         sort: Sort = {},
         limit = 0
-    ): Promise<MongoDocument[]> {
-        return this.mongodbService.get(DatabaseCollections.CareerItems, query, sort, limit)
+    ): Promise<CareerItem[]> {
+        const result = await this.mongodbService.get(DatabaseCollections.CareerItems, query, sort, limit)
+        return result.map(currentCareerItem => CareerItem.fromJson(currentCareerItem))
     }
 
     public async insertCareerItem(
